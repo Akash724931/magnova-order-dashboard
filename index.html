@@ -3,44 +3,163 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Magnova Order Dashboard</title>
+<title>Magnova 3D Dashboard</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:20px}.container{max-width:1400px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.3);overflow:hidden}header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:30px;text-align:center}h1{font-size:2em;margin-bottom:20px}.stats{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-top:15px}.stat-box{background:rgba(255,255,255,.2);padding:15px 30px;border-radius:8px}.stat-box h3{font-size:.9em;opacity:.9}.stat-box p{font-size:1.8em;font-weight:700;margin-top:5px}.controls{padding:20px;background:#f5f5f5;display:flex;gap:10px;flex-wrap:wrap}#search{flex:1;min-width:250px;padding:12px;border:2px solid #ddd;border-radius:6px;font-size:14px}#search:focus{outline:0;border-color:#667eea}select,button{padding:12px 20px;border:2px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:14px}button:hover{background:#f0f0f0}#exportBtn{background:#28a745;color:#fff;border:none}#exportBtn:hover{background:#218838}#clearBtn{background:#dc3545;color:#fff;border:none}#clearBtn:hover{background:#c82333}.upload{padding:15px 20px;background:#fff3cd;display:flex;align-items:center;gap:15px}#fileInput{display:none}label[for=fileInput]{padding:10px 20px;background:#ffc107;border-radius:6px;cursor:pointer;font-weight:700}label[for=fileInput]:hover{background:#e0a800}#fileStatus{color:#856404;font-weight:500}.table-wrapper{overflow-x:auto;padding:20px}table{width:100%;border-collapse:collapse}thead{background:#667eea;color:#fff}th{padding:15px;text-align:left;font-weight:600}tbody tr{border-bottom:1px solid #eee}tbody tr:hover{background:#f9f9f9}td{padding:12px 15px}.badge{padding:5px 10px;border-radius:15px;font-size:12px;font-weight:700}.badge-pending{background:#fff3cd;color:#856404}.badge-completed{background:#d4edda;color:#155724}.no-data{text-align:center;padding:40px;color:#999}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:#0f0f23;color:#fff;overflow-x:hidden}.header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:20px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3)}h1{font-size:2.5em;margin-bottom:10px;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}.nav{display:flex;justify-content:center;gap:15px;margin-top:15px;flex-wrap:wrap}.nav-btn{padding:12px 25px;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.3);border-radius:8px;color:#fff;cursor:pointer;font-weight:600;transition:all 0.3s;backdrop-filter:blur(10px)}.nav-btn:hover,.nav-btn.active{background:rgba(255,255,255,0.4);transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,255,255,0.2)}.upload-zone{background:rgba(255,193,7,0.1);border:3px dashed #ffc107;border-radius:12px;padding:30px;margin:20px;text-align:center;cursor:pointer;transition:all 0.3s}.upload-zone:hover{background:rgba(255,193,7,0.2);border-color:#ffeb3b}.upload-zone input{display:none}.upload-label{font-size:1.2em;color:#ffc107;font-weight:600}.file-list{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:15px}.file-tag{background:#28a745;padding:8px 15px;border-radius:20px;font-size:0.9em}.dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(500px,1fr));gap:20px;padding:20px}.card{background:rgba(255,255,255,0.05);border-radius:15px;padding:20px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 32px rgba(0,0,0,0.3)}.card h2{color:#667eea;margin-bottom:15px;font-size:1.5em}.chart-container{height:400px;width:100%}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;padding:20px}.stat-card{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:25px;border-radius:12px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:transform 0.3s}.stat-card:hover{transform:scale(1.05)}.stat-card h3{font-size:0.9em;opacity:0.9;margin-bottom:10px}.stat-card p{font-size:2.2em;font-weight:bold}.table-wrapper{overflow-x:auto;margin-top:15px}.data-table{width:100%;border-collapse:collapse;font-size:0.9em}.data-table th{background:rgba(102,126,234,0.3);padding:12px;text-align:left;border-bottom:2px solid #667eea}.data-table td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.1)}.data-table tr:hover{background:rgba(255,255,255,0.05)}.badge{padding:5px 12px;border-radius:15px;font-size:0.85em;font-weight:600}.badge-pending{background:#ffc107;color:#000}.badge-completed{background:#28a745}.badge-reserved{background:#17a2b8}.controls{padding:20px;display:flex;gap:10px;flex-wrap:wrap;background:rgba(255,255,255,0.05);border-radius:10px;margin:20px}.control-input{padding:10px 15px;border:2px solid rgba(255,255,255,0.2);border-radius:6px;background:rgba(255,255,255,0.1);color:#fff;font-size:14px}.control-input:focus{outline:none;border-color:#667eea}.btn{padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-weight:600;transition:all 0.3s}.btn-primary{background:#667eea;color:#fff}.btn-primary:hover{background:#5568d3}.btn-success{background:#28a745;color:#fff}.btn-success:hover{background:#218838}.hidden{display:none}
 </style>
 </head>
 <body>
-<div class="container">
-<header>
-<h1>📊 Magnova Order Management</h1>
-<div class="stats" id="stats"></div>
-</header>
+<div class="header">
+<h1>📊 Magnova 3D Analytics Dashboard</h1>
+<div class="nav">
+<button class="nav-btn active" onclick="showTab('overview')">Overview</button>
+<button class="nav-btn" onclick="showTab('sales')">Sales Analysis</button>
+<button class="nav-btn" onclick="showTab('purchase')">Purchase</button>
+<button class="nav-btn" onclick="showTab('billing')">Billing Plan</button>
+<button class="nav-btn" onclick="showTab('inventory')">Inventory</button>
+<button class="nav-btn" onclick="showTab('pricing')">Pricing</button>
+</div>
+</div>
+
+<div class="upload-zone" onclick="document.getElementById('multiFileInput').click()">
+<input type="file" id="multiFileInput" multiple accept=".xlsx,.xls,.csv">
+<div class="upload-label">📁 Upload Multiple Excel Files</div>
+<p style="color:#aaa;margin-top:10px">Sales Orders • Purchase Invoices • Stock Data • Billing Plans</p>
+<div class="file-list" id="fileList"></div>
+</div>
+
+<div id="overview" class="tab-content">
+<div class="stats-grid">
+<div class="stat-card"><h3>Total Orders</h3><p id="totalOrders">0</p></div>
+<div class="stat-card"><h3>Pending Orders</h3><p id="pendingOrders">0</p></div>
+<div class="stat-card"><h3>Total Revenue</h3><p id="totalRevenue">₹0</p></div>
+<div class="stat-card"><h3>Stock Value</h3><p id="stockValue">₹0</p></div>
+<div class="stat-card"><h3>Reserved Items</h3><p id="reservedItems">0</p></div>
+<div class="stat-card"><h3>Available Stock</h3><p id="availableStock">0</p></div>
+</div>
+
+<div class="dashboard">
+<div class="card">
+<h2>📈 Sales Trend (3D)</h2>
+<div id="salesTrend3D" class="chart-container"></div>
+</div>
+<div class="card">
+<h2>🎯 Order Status Distribution</h2>
+<div id="orderStatus3D" class="chart-container"></div>
+</div>
+<div class="card">
+<h2>💰 Revenue by Customer (3D)</h2>
+<div id="revenueCustomer3D" class="chart-container"></div>
+</div>
+<div class="card">
+<h2>📦 Stock vs Reserved</h2>
+<div id="stockReserved3D" class="chart-container"></div>
+</div>
+</div>
+</div>
+
+<div id="sales" class="tab-content hidden">
 <div class="controls">
-<input type="text" id="search" placeholder="🔍 Search orders, customers, items...">
-<select id="statusFilter">
+<input type="text" class="control-input" placeholder="Search sales orders..." id="salesSearch">
+<select class="control-input" id="salesFilter">
 <option value="all">All Status</option>
 <option value="pending">Pending</option>
 <option value="completed">Completed</option>
 </select>
-<button id="clearBtn">Clear</button>
-<button id="exportBtn">📥 Export CSV</button>
+<button class="btn btn-success" onclick="exportData('sales')">📥 Export Sales</button>
 </div>
-<div class="upload">
-<input type="file" id="fileInput" accept=".xlsx,.xls,.csv">
-<label for="fileInput">📁 Upload Excel File</label>
-<span id="fileStatus"></span>
-</div>
+<div class="card">
+<h2>Sales Order Items Report</h2>
 <div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Order No</th><th>Customer</th><th>Item</th><th>Qty</th><th>Pending</th><th>Value</th><th>Sales Person</th><th>Status</th></tr>
-</thead>
-<tbody id="tableBody"></tbody>
+<table class="data-table" id="salesTable">
+<thead><tr><th>Order No</th><th>Customer</th><th>Item</th><th>Qty</th><th>Delivered</th><th>Pending</th><th>Rate</th><th>Value</th><th>Status</th></tr></thead>
+<tbody></tbody>
 </table>
 </div>
 </div>
-<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+</div>
+
+<div id="purchase" class="tab-content hidden">
+<div class="card">
+<h2>Purchase Invoice Items</h2>
+<div class="table-wrapper">
+<table class="data-table" id="purchaseTable">
+<thead><tr><th>Invoice No</th><th>Vendor</th><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="billing" class="tab-content hidden">
+<div class="dashboard">
+<div class="card">
+<h2>📅 Monthly Billing Plan</h2>
+<div id="billingMonthly" class="chart-container"></div>
+</div>
+<div class="card">
+<h2>📆 Yearly Billing Trend</h2>
+<div id="billingYearly" class="chart-container"></div>
+</div>
+</div>
+</div>
+
+<div id="inventory" class="tab-content hidden">
+<div class="card">
+<h2>📦 Stock Availability Dashboard</h2>
+<div class="table-wrapper">
+<table class="data-table" id="inventoryTable">
+<thead><tr><th>Item</th><th>Total Stock</th><th>Reserved</th><th>Available</th><th>Against Order</th><th>Status</th></tr></thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="pricing" class="tab-content hidden">
+<div class="card">
+<h2>💵 Material Pricing</h2>
+<div class="table-wrapper">
+<table class="data-table" id="pricingTable">
+<thead><tr><th>Material</th><th>Current Price</th><th>Last Purchase</th><th>Avg Price</th><th>Trend</th></tr></thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+</div>
+
 <script>
-let allOrders=[{orderNo:'SO-5413',customer:'Druthi Power',item:'MSX-W12-PA-LCD+A-481',qty:21,pending:21,value:144900,salesPerson:'Mithun Kurian',status:'Pending'},{orderNo:'SO-5412',customer:'Impact Air System',item:'Calibration Of BTU Meter',qty:1,pending:1,value:6550,salesPerson:'Mithun Kurian',status:'Pending'},{orderNo:'SO-5411',customer:'Modcon Electro',item:'BS-MWC4-PN16-0350',qty:4,pending:4,value:95600,salesPerson:'Mithun Kurian',status:'Pending'},{orderNo:'SO-5410',customer:'ARS Engineering',item:'D06F-1E',qty:8,pending:8,value:47520,salesPerson:'Mithun Kurian',status:'Pending'},{orderNo:'SO-5409',customer:'Ecosta Systems',item:'DVS200+LMV-BAC-001',qty:2,pending:0,value:0,salesPerson:'Mithun Kurian',status:'Completed'},{orderNo:'SO-5408',customer:'ABS Fujitsu',item:'HSCM-R400U',qty:13,pending:13,value:59800,salesPerson:'Sunil Awere',status:'Pending'},{orderNo:'SO-5406',customer:'VK Building Services',item:'BSV4-CWD-GP16-G250',qty:39,pending:39,value:507000,salesPerson:'Vinoth Kumar',status:'Pending'},{orderNo:'SO-5405',customer:'Blue Star Ltd',item:'4" SS TG with Banner',qty:160,pending:160,value:288000,salesPerson:'Manikandan',status:'Pending'}];let filtered=[...allOrders];function render(){const tbody=document.getElementById('tableBody');if(filtered.length===0){tbody.innerHTML='<tr><td colspan="8" class="no-data">No orders found</td></tr>';return}tbody.innerHTML=filtered.map(o=>`<tr><td><strong>${o.orderNo}</strong></td><td>${o.customer}</td><td>${o.item}</td><td>${o.qty}</td><td><strong>${o.pending}</strong></td><td>₹${o.value.toLocaleString()}</td><td>${o.salesPerson}</td><td><span class="badge badge-${o.status.toLowerCase()}">${o.status}</span></td></tr>`).join('')}function updateStats(){const total=allOrders.length;const pending=allOrders.filter(o=>o.pending>0).length;const totalValue=allOrders.reduce((sum,o)=>sum+o.value,0);document.getElementById('stats').innerHTML=`<div class="stat-box"><h3>Total Orders</h3><p>${total}</p></div><div class="stat-box"><h3>Pending</h3><p>${pending}</p></div><div class="stat-box"><h3>Total Value</h3><p>₹${(totalValue/100000).toFixed(1)}L</p></div>`}function applyFilters(){const search=document.getElementById('search').value.toLowerCase();const status=document.getElementById('statusFilter').value;filtered=allOrders.filter(o=>{const matchSearch=o.orderNo.toLowerCase().includes(search)||o.customer.toLowerCase().includes(search)||o.item.toLowerCase().includes(search);const matchStatus=status==='all'||(status==='pending'&&o.pending>0)||(status==='completed'&&o.pending===0);return matchSearch&&matchStatus});render()}document.getElementById('search').addEventListener('input',applyFilters);document.getElementById('statusFilter').addEventListener('change',applyFilters);document.getElementById('clearBtn').addEventListener('click',()=>{document.getElementById('search').value='';document.getElementById('statusFilter').value='all';filtered=[...allOrders];render()});document.getElementById('exportBtn').addEventListener('click',()=>{const csv=['Order No,Customer,Item,Qty,Pending,Value,Sales Person,Status',...filtered.map(o=>`${o.orderNo},${o.customer},${o.item},${o.qty},${o.pending},${o.value},${o.salesPerson},${o.status}`)].join('\n');const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='magnova-orders.csv';a.click()});document.getElementById('fileInput').addEventListener('change',(e)=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=(evt)=>{try{const data=new Uint8Array(evt.target.result);const wb=XLSX.read(data,{type:'array'});const ws=wb.Sheets[wb.SheetNames[0]];const json=XLSX.utils.sheet_to_json(ws);allOrders=json.map(r=>({orderNo:r['Order No']||r['Sl. No']||'',customer:r['Customer']||'',item:r['Item Name']||'',qty:parseInt(r['Order Delivery']||r['Order Qty']||0),pending:parseInt(r['Pending']||0),value:parseFloat(r['Pending D.']||r['Pending Value']||0),salesPerson:r['Item Descript Sales Person']||r['Sales Person']||'',status:(parseInt(r['Pending']||0)>0)?'Pending':'Completed'}));filtered=[...allOrders];render();updateStats();document.getElementById('fileStatus').textContent=`✅ Loaded ${allOrders.length} orders`}catch(err){document.getElementById('fileStatus').textContent='❌ Error loading file'}};reader.readAsArrayBuffer(file)});render();updateStats();
+let salesData=[],purchaseData=[],stockData=[],billingData=[],pricingData=[];
+
+function showTab(tab){document.querySelectorAll('.tab-content').forEach(t=>t.classList.add('hidden'));document.getElementById(tab).classList.remove('hidden');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active')}
+
+document.getElementById('multiFileInput').addEventListener('change',function(e){const files=e.target.files;const fileList=document.getElementById('fileList');fileList.innerHTML='';Array.from(files).forEach(file=>{const tag=document.createElement('div');tag.className='file-tag';tag.textContent=file.name;fileList.appendChild(tag);const reader=new FileReader();reader.onload=function(evt){try{const data=new Uint8Array(evt.target.result);const wb=XLSX.read(data,{type:'array'});const ws=wb.Sheets[wb.SheetNames[0]];const json=XLSX.utils.sheet_to_json(ws);if(file.name.toLowerCase().includes('sales')||file.name.toLowerCase().includes('order')){salesData=json}else if(file.name.toLowerCase().includes('purchase')||file.name.toLowerCase().includes('invoice')){purchaseData=json}else if(file.name.toLowerCase().includes('stock')||file.name.toLowerCase().includes('inventory')){stockData=json}else if(file.name.toLowerCase().includes('billing')||file.name.toLowerCase().includes('plan')){billingData=json}else if(file.name.toLowerCase().includes('price')||file.name.toLowerCase().includes('material')){pricingData=json}processData()}catch(err){console.error('Error:',err)}};reader.readAsArrayBuffer(file)})});
+
+function processData(){updateStats();render3DCharts();renderTables()}
+
+function updateStats(){const totalOrders=salesData.length;const pending=salesData.filter(o=>parseInt(o.Pending||0)>0).length;const revenue=salesData.reduce((sum,o)=>sum+(parseFloat(o['Pending Value']||o.Value||0)),0);const stock=stockData.reduce((sum,s)=>sum+parseInt(s['Total Stock']||0),0);const reserved=stockData.reduce((sum,s)=>sum+parseInt(s.Reserved||0),0);document.getElementById('totalOrders').textContent=totalOrders;document.getElementById('pendingOrders').textContent=pending;document.getElementById('totalRevenue').textContent='₹'+(revenue/100000).toFixed(2)+'L';document.getElementById('stockValue').textContent=stock;document.getElementById('reservedItems').textContent=reserved;document.getElementById('availableStock').textContent=stock-reserved}
+
+function render3DCharts(){const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const salesTrend={x:months,y:months.map(()=>Math.random()*1000000),z:months.map(()=>Math.random()*500),type:'scatter3d',mode:'lines+markers',marker:{size:8,color:months.map((_,i)=>i),colorscale:'Viridis'},line:{width:4,color:'#667eea'}};Plotly.newPlot('salesTrend3D',[salesTrend],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'},scene:{xaxis:{title:'Month'},yaxis:{title:'Revenue'},zaxis:{title:'Orders'}}},{responsive:true});
+
+const statusData={values:[30,50,20],labels:['Pending','Completed','Reserved'],type:'pie',hole:0.4,marker:{colors:['#ffc107','#28a745','#17a2b8']},textfont:{color:'#fff'}};Plotly.newPlot('orderStatus3D',[statusData],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'}},{responsive:true});
+
+const customers=['Customer A','Customer B','Customer C','Customer D','Customer E'];const revenueData={x:customers,y:customers.map(()=>Math.random()*500000),z:customers.map(()=>Math.random()*100),type:'scatter3d',mode:'markers',marker:{size:15,color:customers.map((_,i)=>i),colorscale:'Portland'}};Plotly.newPlot('revenueCustomer3D',[revenueData],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'},scene:{xaxis:{title:'Customer'},yaxis:{title:'Revenue'},zaxis:{title:'Orders'}}},{responsive:true});
+
+const items=['Item 1','Item 2','Item 3','Item 4','Item 5'];const stockTrace={x:items,y:items.map(()=>Math.random()*100),name:'Total Stock',type:'bar',marker:{color:'#667eea'}};const reservedTrace={x:items,y:items.map(()=>Math.random()*50),name:'Reserved',type:'bar',marker:{color:'#ffc107'}};Plotly.newPlot('stockReserved3D',[stockTrace,reservedTrace],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'},barmode:'group'},{responsive:true});
+
+const billingMonths=months.map(m=>({month:m,amount:Math.random()*1000000}));const monthlyTrace={x:months,y:billingMonths.map(b=>b.amount),type:'scatter',mode:'lines+markers',line:{color:'#28a745',width:3},marker:{size:10}};Plotly.newPlot('billingMonthly',[monthlyTrace],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'},xaxis:{title:'Month'},yaxis:{title:'Billing Amount (₹)'}},{responsive:true});
+
+const years=['2023','2024','2025'];const yearlyTrace={x:years,y:years.map(()=>Math.random()*10000000),type:'bar',marker:{color:['#667eea','#764ba2','#28a745']}};Plotly.newPlot('billingYearly',[yearlyTrace],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'},xaxis:{title:'Year'},yaxis:{title:'Total Billing (₹)'}},{responsive:true})}
+
+function renderTables(){const salesTable=document.querySelector('#salesTable tbody');salesTable.innerHTML=salesData.slice(0,50).map(o=>`<tr><td>${o['Order No']||o['Sl. No']||''}</td><td>${o.Customer||''}</td><td>${o['Item Name']||''}</td><td>${o['Order Qty']||0}</td><td>${o.Delivered||0}</td><td>${o.Pending||0}</td><td>₹${(o.Rate||0).toLocaleString()}</td><td>₹${(o['Pending Value']||0).toLocaleString()}</td><td><span class="badge ${parseInt(o.Pending||0)>0?'badge-pending':'badge-completed'}">${parseInt(o.Pending||0)>0?'Pending':'Completed'}</span></td></tr>`).join('');
+
+const inventoryTable=document.querySelector('#inventoryTable tbody');if(stockData.length>0){inventoryTable.innerHTML=stockData.slice(0,50).map(s=>`<tr><td>${s.Item||s['Item Name']||''}</td><td>${s['Total Stock']||0}</td><td>${s.Reserved||0}</td><td>${(s['Total Stock']||0)-(s.Reserved||0)}</td><td>${s['Against Order']||'-'}</td><td><span class="badge ${(s['Total Stock']||0)>(s.Reserved||0)?'badge-completed':'badge-pending'}">${(s['Total Stock']||0)>(s.Reserved||0)?'Available':'Low Stock'}</span></td></tr>`).join('')}else{inventoryTable.innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px;color:#aaa">Upload stock/inventory Excel file to see data</td></tr>'}}
+
+function exportData(type){const data=type==='sales'?salesData:purchaseData;const csv=[Object.keys(data[0]||{}).join(','),...data.map(row=>Object.values(row).join(','))].join('\n');const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`magnova-${type}-${new Date().toISOString().split('T')[0]}.csv`;a.click()}
+
+render3DCharts();
 </script>
 </body>
 </html>
