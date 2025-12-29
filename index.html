@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magnova Order Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:20px}.container{max-width:1400px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.3);overflow:hidden}header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:30px;text-align:center}h1{font-size:2em;margin-bottom:20px}.stats{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-top:15px}.stat-box{background:rgba(255,255,255,.2);padding:15px 30px;border-radius:8px}.stat-box h3{font-size:.9em;opacity:.9}.stat-box p{font-size:1.8em;font-weight:700;margin-top:5px}.controls{padding:20px;background:#f5f5f5;display:flex;gap:10px;flex-wrap:wrap}#search{flex:1;min-width:250px;padding:12px;border:2px solid #ddd;border-radius:6px;font-size:14px}#search:focus{outline:0;border-color:#667eea}select,button{padding:12px 20px;border:2px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:14px}button:hover{background:#f0f0f0}#exportBtn{background:#28a745;color:#fff;border:none}#exportBtn:hover{background:#218838}#clearBtn{background:#dc3545;color:#fff;border:none}#clearBtn:hover{background:#c82333}.upload{padding:15px 20px;background:#fff3cd;display:flex;align-items:center;gap:15px}#fileInput{display:none}label[for=fileInput]{padding:10px 20px;background:#ffc107;border-radius:6px;cursor:pointer;font-weight:700}label[for=fileInput]:hover{background:#e0a800}#fileStatus{color:#856404;font-weight:500}.table-wrapper{overflow-x:auto;padding:20px}table{width:100%;border-collapse:collapse}thead{background:#667eea;color:#fff}th{padding:15px;text-align:left;font-weight:600}tbody tr{border-bottom:1px solid #eee}tbody tr:hover{background:#f9f9f9}td{padding:12px 15px}.badge{padding:5px 10px;border-radius:15px;font-size:12px;font-weight:700}.badge-pending{background:#fff3cd;color:#856404}.badge-completed{background:#d4edda;color:#155724}.no-data{text-align:center;padding:40px;color:#999}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>📊 Magnova Order Management</h1>
+<div class="stats" id="stats"></div>
+</header>
+<div class="controls">
+<input type="text" id="search" placeholder="🔍 Search orders, customers, items...">
+<select id="statusFilter">
+<option value="all">All Status</option>
+<option value="pending">Pending</option>
+<option value="completed">Completed</option>
+</select>
+<button id="clearBtn">Clear</button>
+<button id="exportBtn">📥 Export CSV</button>
+</div>
+<div class="upload">
+<input type="file" id="fileInput" accept=".xlsx,.xls,.csv">
+<label for="fileInput">📁 Upload Excel File</label>
+<span id="fileStatus"></span>
+</div>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Order No</th><th>Customer</th><th>Item</th><th>Qty</th><th>Pending</th><th>Value</th><th>Sales Person</th><th>Status</th></tr>
+</thead>
+<tbody id="tableBody"></tbody>
+</table>
+</div>
+</div>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+<script>
+let allOrders=[{orderNo:'SO-5413',customer:'Druthi Power',item:'MSX-W12-PA-LCD+A-481',qty:21,pending:21,value:144900,salesPerson:'Mithun Kurian',status:'Pending'},{orderNo:'SO-5412',customer:'Impact Air System',item:'Calibration Of BTU Meter',qty:1,pending:1,value:6550,salesPerson:'Mithun Kurian',status:'Pending'},{orderNo:'SO-5411',customer:'Modcon Electro',item:'BS-MWC4-PN16-0350',qty:4,pending:4,value:95600,salesPerson:'Mithun Kurian',status:'Pending'},{orderNo:'SO-5410',customer:'ARS Engineering',item:'D06F-1E',qty:8,pending:8,value:47520,salesPerson:'Mithun Kurian',status:'Pending'},{orderNo:'SO-5409',customer:'Ecosta Systems',item:'DVS200+LMV-BAC-001',qty:2,pending:0,value:0,salesPerson:'Mithun Kurian',status:'Completed'},{orderNo:'SO-5408',customer:'ABS Fujitsu',item:'HSCM-R400U',qty:13,pending:13,value:59800,salesPerson:'Sunil Awere',status:'Pending'},{orderNo:'SO-5406',customer:'VK Building Services',item:'BSV4-CWD-GP16-G250',qty:39,pending:39,value:507000,salesPerson:'Vinoth Kumar',status:'Pending'},{orderNo:'SO-5405',customer:'Blue Star Ltd',item:'4" SS TG with Banner',qty:160,pending:160,value:288000,salesPerson:'Manikandan',status:'Pending'}];let filtered=[...allOrders];function render(){const tbody=document.getElementById('tableBody');if(filtered.length===0){tbody.innerHTML='<tr><td colspan="8" class="no-data">No orders found</td></tr>';return}tbody.innerHTML=filtered.map(o=>`<tr><td><strong>${o.orderNo}</strong></td><td>${o.customer}</td><td>${o.item}</td><td>${o.qty}</td><td><strong>${o.pending}</strong></td><td>₹${o.value.toLocaleString()}</td><td>${o.salesPerson}</td><td><span class="badge badge-${o.status.toLowerCase()}">${o.status}</span></td></tr>`).join('')}function updateStats(){const total=allOrders.length;const pending=allOrders.filter(o=>o.pending>0).length;const totalValue=allOrders.reduce((sum,o)=>sum+o.value,0);document.getElementById('stats').innerHTML=`<div class="stat-box"><h3>Total Orders</h3><p>${total}</p></div><div class="stat-box"><h3>Pending</h3><p>${pending}</p></div><div class="stat-box"><h3>Total Value</h3><p>₹${(totalValue/100000).toFixed(1)}L</p></div>`}function applyFilters(){const search=document.getElementById('search').value.toLowerCase();const status=document.getElementById('statusFilter').value;filtered=allOrders.filter(o=>{const matchSearch=o.orderNo.toLowerCase().includes(search)||o.customer.toLowerCase().includes(search)||o.item.toLowerCase().includes(search);const matchStatus=status==='all'||(status==='pending'&&o.pending>0)||(status==='completed'&&o.pending===0);return matchSearch&&matchStatus});render()}document.getElementById('search').addEventListener('input',applyFilters);document.getElementById('statusFilter').addEventListener('change',applyFilters);document.getElementById('clearBtn').addEventListener('click',()=>{document.getElementById('search').value='';document.getElementById('statusFilter').value='all';filtered=[...allOrders];render()});document.getElementById('exportBtn').addEventListener('click',()=>{const csv=['Order No,Customer,Item,Qty,Pending,Value,Sales Person,Status',...filtered.map(o=>`${o.orderNo},${o.customer},${o.item},${o.qty},${o.pending},${o.value},${o.salesPerson},${o.status}`)].join('\n');const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='magnova-orders.csv';a.click()});document.getElementById('fileInput').addEventListener('change',(e)=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=(evt)=>{try{const data=new Uint8Array(evt.target.result);const wb=XLSX.read(data,{type:'array'});const ws=wb.Sheets[wb.SheetNames[0]];const json=XLSX.utils.sheet_to_json(ws);allOrders=json.map(r=>({orderNo:r['Order No']||r['Sl. No']||'',customer:r['Customer']||'',item:r['Item Name']||'',qty:parseInt(r['Order Delivery']||r['Order Qty']||0),pending:parseInt(r['Pending']||0),value:parseFloat(r['Pending D.']||r['Pending Value']||0),salesPerson:r['Item Descript Sales Person']||r['Sales Person']||'',status:(parseInt(r['Pending']||0)>0)?'Pending':'Completed'}));filtered=[...allOrders];render();updateStats();document.getElementById('fileStatus').textContent=`✅ Loaded ${allOrders.length} orders`}catch(err){document.getElementById('fileStatus').textContent='❌ Error loading file'}};reader.readAsArrayBuffer(file)});render();updateStats();
+</script>
+</body>
+</html>
