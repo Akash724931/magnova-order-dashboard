@@ -7,7 +7,7 @@
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:#0f0f23;color:#fff;overflow-x:hidden}.header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:20px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3)}h1{font-size:2.5em;margin-bottom:10px;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}.nav{display:flex;justify-content:center;gap:15px;margin-top:15px;flex-wrap:wrap}.nav-btn{padding:12px 25px;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.3);border-radius:8px;color:#fff;cursor:pointer;font-weight:600;transition:all 0.3s;backdrop-filter:blur(10px)}.nav-btn:hover,.nav-btn.active{background:rgba(255,255,255,0.4);transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,255,255,0.2)}.upload-zone{background:rgba(255,193,7,0.1);border:3px dashed #ffc107;border-radius:12px;padding:30px;margin:20px;text-align:center;cursor:pointer;transition:all 0.3s}.upload-zone:hover{background:rgba(255,193,7,0.2);border-color:#ffeb3b}.upload-zone input{display:none}.upload-label{font-size:1.2em;color:#ffc107;font-weight:600}.file-list{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:15px}.file-tag{background:#28a745;padding:8px 15px;border-radius:20px;font-size:0.9em}.dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(500px,1fr));gap:20px;padding:20px}.card{background:rgba(255,255,255,0.05);border-radius:15px;padding:20px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 32px rgba(0,0,0,0.3)}.card h2{color:#667eea;margin-bottom:15px;font-size:1.5em}.chart-container{height:400px;width:100%}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;padding:20px}.stat-card{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:25px;border-radius:12px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:transform 0.3s}.stat-card:hover{transform:scale(1.05)}.stat-card h3{font-size:0.9em;opacity:0.9;margin-bottom:10px}.stat-card p{font-size:2.2em;font-weight:bold}.table-wrapper{overflow-x:auto;margin-top:15px}.data-table{width:100%;border-collapse:collapse;font-size:0.9em}.data-table th{background:rgba(102,126,234,0.3);padding:12px;text-align:left;border-bottom:2px solid #667eea}.data-table td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.1)}.data-table tr:hover{background:rgba(255,255,255,0.05)}.badge{padding:5px 12px;border-radius:15px;font-size:0.85em;font-weight:600}.badge-pending{background:#ffc107;color:#000}.badge-completed{background:#28a745}.badge-reserved{background:#17a2b8}.controls{padding:20px;display:flex;gap:10px;flex-wrap:wrap;background:rgba(255,255,255,0.05);border-radius:10px;margin:20px}.control-input{padding:10px 15px;border:2px solid rgba(255,255,255,0.2);border-radius:6px;background:rgba(255,255,255,0.1);color:#fff;font-size:14px}.control-input:focus{outline:none;border-color:#667eea}.btn{padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-weight:600;transition:all 0.3s}.btn-primary{background:#667eea;color:#fff}.btn-primary:hover{background:#5568d3}.btn-success{background:#28a745;color:#fff}.btn-success:hover{background:#218838}.hidden{display:none}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:#0f0f23;color:#fff;overflow-x:hidden}.header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:20px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3)}h1{font-size:2.5em;margin-bottom:10px;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}.nav{display:flex;justify-content:center;gap:15px;margin-top:15px;flex-wrap:wrap}.nav-btn{padding:12px 25px;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.3);border-radius:8px;color:#fff;cursor:pointer;font-weight:600;transition:all 0.3s;backdrop-filter:blur(10px)}.nav-btn:hover,.nav-btn.active{background:rgba(255,255,255,0.4);transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,255,255,0.2)}.upload-zone{background:rgba(255,193,7,0.1);border:3px dashed #ffc107;border-radius:12px;padding:30px;margin:20px;text-align:center;cursor:pointer;transition:all 0.3s}.upload-zone:hover{background:rgba(255,193,7,0.2);border-color:#ffeb3b}.upload-zone input{display:none}.upload-label{font-size:1.2em;color:#ffc107;font-weight:600}.file-list{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:15px}.file-tag{background:#28a745;padding:8px 15px;border-radius:20px;font-size:0.9em}.dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(500px,1fr));gap:20px;padding:20px}.card{background:rgba(255,255,255,0.05);border-radius:15px;padding:20px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 32px rgba(0,0,0,0.3)}.card h2{color:#667eea;margin-bottom:15px;font-size:1.5em}.chart-container{height:400px;width:100%}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;padding:20px}.stat-card{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:25px;border-radius:12px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:transform 0.3s}.stat-card:hover{transform:scale(1.05)}.stat-card h3{font-size:0.9em;opacity:0.9;margin-bottom:10px}.stat-card p{font-size:2.2em;font-weight:bold}.table-wrapper{overflow-x:auto;margin-top:15px;max-height:600px}.data-table{width:100%;border-collapse:collapse;font-size:0.85em}.data-table th{background:rgba(102,126,234,0.3);padding:12px 8px;text-align:left;border-bottom:2px solid #667eea;position:sticky;top:0;z-index:10}.data-table td{padding:10px 8px;border-bottom:1px solid rgba(255,255,255,0.1)}.data-table tr:hover{background:rgba(255,255,255,0.05)}.badge{padding:5px 12px;border-radius:15px;font-size:0.85em;font-weight:600}.badge-pending{background:#ffc107;color:#000}.badge-completed{background:#28a745}.badge-reserved{background:#17a2b8}.controls{padding:20px;display:flex;gap:10px;flex-wrap:wrap;background:rgba(255,255,255,0.05);border-radius:10px;margin:20px}.control-input{padding:10px 15px;border:2px solid rgba(255,255,255,0.2);border-radius:6px;background:rgba(255,255,255,0.1);color:#fff;font-size:14px}.control-input:focus{outline:none;border-color:#667eea}.btn{padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-weight:600;transition:all 0.3s}.btn-primary{background:#667eea;color:#fff}.btn-primary:hover{background:#5568d3}.btn-success{background:#28a745;color:#fff}.btn-success:hover{background:#218838}.hidden{display:none}.debug{background:rgba(255,0,0,0.1);padding:10px;margin:10px;border-radius:5px;font-size:0.8em;color:#ff6b6b}
 </style>
 </head>
 <body>
@@ -35,9 +35,9 @@
 <div class="stat-card"><h3>Total Orders</h3><p id="totalOrders">0</p></div>
 <div class="stat-card"><h3>Pending Orders</h3><p id="pendingOrders">0</p></div>
 <div class="stat-card"><h3>Total Revenue</h3><p id="totalRevenue">₹0</p></div>
-<div class="stat-card"><h3>Stock Value</h3><p id="stockValue">₹0</p></div>
-<div class="stat-card"><h3>Reserved Items</h3><p id="reservedItems">0</p></div>
-<div class="stat-card"><h3>Available Stock</h3><p id="availableStock">0</p></div>
+<div class="stat-card"><h3>Items Count</h3><p id="itemsCount">0</p></div>
+<div class="stat-card"><h3>Customers</h3><p id="customersCount">0</p></div>
+<div class="stat-card"><h3>Avg Order Value</h3><p id="avgOrderValue">₹0</p></div>
 </div>
 
 <div class="dashboard">
@@ -50,31 +50,31 @@
 <div id="orderStatus3D" class="chart-container"></div>
 </div>
 <div class="card">
-<h2>💰 Revenue by Customer (3D)</h2>
+<h2>💰 Top Customers by Revenue</h2>
 <div id="revenueCustomer3D" class="chart-container"></div>
 </div>
 <div class="card">
-<h2>📦 Stock vs Reserved</h2>
-<div id="stockReserved3D" class="chart-container"></div>
+<h2>📦 Sales by Category</h2>
+<div id="categoryChart" class="chart-container"></div>
 </div>
 </div>
 </div>
 
 <div id="sales" class="tab-content hidden">
 <div class="controls">
-<input type="text" class="control-input" placeholder="Search sales orders..." id="salesSearch">
-<select class="control-input" id="salesFilter">
+<input type="text" class="control-input" placeholder="Search orders, customers, items..." id="salesSearch" onkeyup="filterSales()">
+<select class="control-input" id="salesFilter" onchange="filterSales()">
 <option value="all">All Status</option>
-<option value="pending">Pending</option>
-<option value="completed">Completed</option>
+<option value="pending">Pending Only</option>
+<option value="completed">Completed Only</option>
 </select>
 <button class="btn btn-success" onclick="exportData('sales')">📥 Export Sales</button>
 </div>
 <div class="card">
-<h2>Sales Order Items Report</h2>
+<h2>Sales Order Items Report (<span id="salesCount">0</span> records)</h2>
 <div class="table-wrapper">
 <table class="data-table" id="salesTable">
-<thead><tr><th>Order No</th><th>Customer</th><th>Item</th><th>Qty</th><th>Delivered</th><th>Pending</th><th>Rate</th><th>Value</th><th>Status</th></tr></thead>
+<thead><tr><th>Order No</th><th>Customer</th><th>Item</th><th>Qty</th><th>Delivered</th><th>Pending</th><th>Rate</th><th>Pending Value</th><th>Sales Person</th><th>Status</th></tr></thead>
 <tbody></tbody>
 </table>
 </div>
@@ -83,10 +83,10 @@
 
 <div id="purchase" class="tab-content hidden">
 <div class="card">
-<h2>Purchase Invoice Items</h2>
+<h2>Purchase Order Items (<span id="purchaseCount">0</span> records)</h2>
 <div class="table-wrapper">
 <table class="data-table" id="purchaseTable">
-<thead><tr><th>Invoice No</th><th>Vendor</th><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
+<thead><tr><th>Order No</th><th>Vendor</th><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th><th>Remarks</th><th>Status</th></tr></thead>
 <tbody></tbody>
 </table>
 </div>
@@ -96,22 +96,27 @@
 <div id="billing" class="tab-content hidden">
 <div class="dashboard">
 <div class="card">
-<h2>📅 Monthly Billing Plan</h2>
-<div id="billingMonthly" class="chart-container"></div>
+<h2>📅 Billing Plan Overview</h2>
+<div id="billingChart" class="chart-container"></div>
 </div>
 <div class="card">
-<h2>📆 Yearly Billing Trend</h2>
-<div id="billingYearly" class="chart-container"></div>
+<h2>📋 Billing Details (<span id="billingCount">0</span> records)</h2>
+<div class="table-wrapper">
+<table class="data-table" id="billingTable">
+<thead><tr><th>Order</th><th>Customer</th><th>Amount</th><th>Plan Date</th><th>Status</th></tr></thead>
+<tbody></tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
 
 <div id="inventory" class="tab-content hidden">
 <div class="card">
-<h2>📦 Stock Availability Dashboard</h2>
+<h2>📦 Stock Register (<span id="inventoryCount">0</span> items)</h2>
 <div class="table-wrapper">
 <table class="data-table" id="inventoryTable">
-<thead><tr><th>Item</th><th>Total Stock</th><th>Reserved</th><th>Available</th><th>Against Order</th><th>Status</th></tr></thead>
+<thead><tr><th>Item</th><th>Description</th><th>Qty</th><th>Rate</th><th>Value</th><th>Location</th></tr></thead>
 <tbody></tbody>
 </table>
 </div>
@@ -120,10 +125,10 @@
 
 <div id="pricing" class="tab-content hidden">
 <div class="card">
-<h2>💵 Material Pricing</h2>
+<h2>💵 Invoice Items (<span id="invoiceCount">0</span> records)</h2>
 <div class="table-wrapper">
 <table class="data-table" id="pricingTable">
-<thead><tr><th>Material</th><th>Current Price</th><th>Last Purchase</th><th>Avg Price</th><th>Trend</th></tr></thead>
+<thead><tr><th>Invoice No</th><th>Customer</th><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th><th>Date</th></tr></thead>
 <tbody></tbody>
 </table>
 </div>
@@ -131,33 +136,38 @@
 </div>
 
 <script>
-let salesData=[],purchaseData=[],stockData=[],billingData=[],pricingData=[];
+let allData={sales:[],purchase:[],billing:[],inventory:[],invoice:[]};
+let filteredSales=[];
 
 function showTab(tab){document.querySelectorAll('.tab-content').forEach(t=>t.classList.add('hidden'));document.getElementById(tab).classList.remove('hidden');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active')}
 
-document.getElementById('multiFileInput').addEventListener('change',function(e){const files=e.target.files;const fileList=document.getElementById('fileList');fileList.innerHTML='';Array.from(files).forEach(file=>{const tag=document.createElement('div');tag.className='file-tag';tag.textContent=file.name;fileList.appendChild(tag);const reader=new FileReader();reader.onload=function(evt){try{const data=new Uint8Array(evt.target.result);const wb=XLSX.read(data,{type:'array'});const ws=wb.Sheets[wb.SheetNames[0]];const json=XLSX.utils.sheet_to_json(ws);if(file.name.toLowerCase().includes('sales')||file.name.toLowerCase().includes('order')){salesData=json}else if(file.name.toLowerCase().includes('purchase')||file.name.toLowerCase().includes('invoice')){purchaseData=json}else if(file.name.toLowerCase().includes('stock')||file.name.toLowerCase().includes('inventory')){stockData=json}else if(file.name.toLowerCase().includes('billing')||file.name.toLowerCase().includes('plan')){billingData=json}else if(file.name.toLowerCase().includes('price')||file.name.toLowerCase().includes('material')){pricingData=json}processData()}catch(err){console.error('Error:',err)}};reader.readAsArrayBuffer(file)})});
+document.getElementById('multiFileInput').addEventListener('change',function(e){const files=e.target.files;const fileList=document.getElementById('fileList');fileList.innerHTML='';let processed=0;Array.from(files).forEach(file=>{const tag=document.createElement('div');tag.className='file-tag';tag.textContent=file.name;fileList.appendChild(tag);const reader=new FileReader();reader.onload=function(evt){try{const data=new Uint8Array(evt.target.result);const wb=XLSX.read(data,{type:'array'});const ws=wb.Sheets[wb.SheetNames[0]];const json=XLSX.utils.sheet_to_json(ws);const fname=file.name.toLowerCase();if(fname.includes('sales')&&fname.includes('order')&&fname.includes('item')){allData.sales=json;console.log('Sales data loaded:',json.length,'rows')}else if(fname.includes('purchase')&&fname.includes('order')){allData.purchase=json;console.log('Purchase data loaded:',json.length,'rows')}else if(fname.includes('billing')||fname.includes('plan')){allData.billing=json;console.log('Billing data loaded:',json.length,'rows')}else if(fname.includes('register')){allData.inventory=json;console.log('Inventory data loaded:',json.length,'rows')}else if(fname.includes('invoice')){allData.invoice=json;console.log('Invoice data loaded:',json.length,'rows')}processed++;if(processed===files.length){processAllData()}}catch(err){console.error('Error loading',file.name,':',err)}};reader.readAsArrayBuffer(file)})});
 
-function processData(){updateStats();render3DCharts();renderTables()}
+function processAllData(){updateStats();render3DCharts();renderAllTables();filteredSales=[...allData.sales];filterSales()}
 
-function updateStats(){const totalOrders=salesData.length;const pending=salesData.filter(o=>parseInt(o.Pending||0)>0).length;const revenue=salesData.reduce((sum,o)=>sum+(parseFloat(o['Pending Value']||o.Value||0)),0);const stock=stockData.reduce((sum,s)=>sum+parseInt(s['Total Stock']||0),0);const reserved=stockData.reduce((sum,s)=>sum+parseInt(s.Reserved||0),0);document.getElementById('totalOrders').textContent=totalOrders;document.getElementById('pendingOrders').textContent=pending;document.getElementById('totalRevenue').textContent='₹'+(revenue/100000).toFixed(2)+'L';document.getElementById('stockValue').textContent=stock;document.getElementById('reservedItems').textContent=reserved;document.getElementById('availableStock').textContent=stock-reserved}
+function updateStats(){const sales=allData.sales;const total=sales.length;const pending=sales.filter(o=>(parseInt(o.Pending||o['Pending Rate']||0)>0)).length;const revenue=sales.reduce((sum,o)=>sum+(parseFloat(o['Pending D.']||o['Pending Value']||o['Value Before']||0)),0);const customers=new Set(sales.map(o=>o.Customer)).size;const avgOrder=total>0?revenue/total:0;document.getElementById('totalOrders').textContent=total;document.getElementById('pendingOrders').textContent=pending;document.getElementById('totalRevenue').textContent='₹'+(revenue/100000).toFixed(2)+'L';document.getElementById('itemsCount').textContent=sales.length;document.getElementById('customersCount').textContent=customers;document.getElementById('avgOrderValue').textContent='₹'+(avgOrder/1000).toFixed(1)+'K'}
 
-function render3DCharts(){const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const salesTrend={x:months,y:months.map(()=>Math.random()*1000000),z:months.map(()=>Math.random()*500),type:'scatter3d',mode:'lines+markers',marker:{size:8,color:months.map((_,i)=>i),colorscale:'Viridis'},line:{width:4,color:'#667eea'}};Plotly.newPlot('salesTrend3D',[salesTrend],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'},scene:{xaxis:{title:'Month'},yaxis:{title:'Revenue'},zaxis:{title:'Orders'}}},{responsive:true});
+function render3DCharts(){const sales=allData.sales;if(sales.length===0)return;const customerRevenue={};sales.forEach(o=>{const cust=o.Customer||'Unknown';const val=parseFloat(o['Pending D.']||o['Pending Value']||o['Value Before']||0);customerRevenue[cust]=(customerRevenue[cust]||0)+val});const topCustomers=Object.entries(customerRevenue).sort((a,b)=>b[1]-a[1]).slice(0,10);const statusData={values:[sales.filter(o=>parseInt(o.Pending||0)>0).length,sales.filter(o=>parseInt(o.Pending||0)===0).length],labels:['Pending','Completed'],type:'pie',hole:0.4,marker:{colors:['#ffc107','#28a745']},textfont:{color:'#fff',size:14}};Plotly.newPlot('orderStatus3D',[statusData],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'}},{responsive:true});
 
-const statusData={values:[30,50,20],labels:['Pending','Completed','Reserved'],type:'pie',hole:0.4,marker:{colors:['#ffc107','#28a745','#17a2b8']},textfont:{color:'#fff'}};Plotly.newPlot('orderStatus3D',[statusData],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'}},{responsive:true});
+const revenueTrace={x:topCustomers.map(c=>c[0]),y:topCustomers.map(c=>c[1]),type:'bar',marker:{color:'#667eea'}};Plotly.newPlot('revenueCustomer3D',[revenueTrace],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'},xaxis:{title:'Customer'},yaxis:{title:'Revenue (₹)'}},{responsive:true});
 
-const customers=['Customer A','Customer B','Customer C','Customer D','Customer E'];const revenueData={x:customers,y:customers.map(()=>Math.random()*500000),z:customers.map(()=>Math.random()*100),type:'scatter3d',mode:'markers',marker:{size:15,color:customers.map((_,i)=>i),colorscale:'Portland'}};Plotly.newPlot('revenueCustomer3D',[revenueData],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'},scene:{xaxis:{title:'Customer'},yaxis:{title:'Revenue'},zaxis:{title:'Orders'}}},{responsive:true});
+const categories={};sales.forEach(o=>{const cat=o['Item Category']||o['Sales Category']||'Other';categories[cat]=(categories[cat]||0)+1});const categoryTrace={values:Object.values(categories),labels:Object.keys(categories),type:'pie',marker:{colors:['#667eea','#764ba2','#28a745','#ffc107','#17a2b8']},textfont:{color:'#fff'}};Plotly.newPlot('categoryChart',[categoryTrace],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'}},{responsive:true})}
 
-const items=['Item 1','Item 2','Item 3','Item 4','Item 5'];const stockTrace={x:items,y:items.map(()=>Math.random()*100),name:'Total Stock',type:'bar',marker:{color:'#667eea'}};const reservedTrace={x:items,y:items.map(()=>Math.random()*50),name:'Reserved',type:'bar',marker:{color:'#ffc107'}};Plotly.newPlot('stockReserved3D',[stockTrace,reservedTrace],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'},barmode:'group'},{responsive:true});
+function renderAllTables(){renderSalesTable();renderPurchaseTable();renderBillingTable();renderInventoryTable();renderInvoiceTable()}
 
-const billingMonths=months.map(m=>({month:m,amount:Math.random()*1000000}));const monthlyTrace={x:months,y:billingMonths.map(b=>b.amount),type:'scatter',mode:'lines+markers',line:{color:'#28a745',width:3},marker:{size:10}};Plotly.newPlot('billingMonthly',[monthlyTrace],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'},xaxis:{title:'Month'},yaxis:{title:'Billing Amount (₹)'}},{responsive:true});
+function renderSalesTable(){const tbody=document.querySelector('#salesTable tbody');if(filteredSales.length===0){tbody.innerHTML='<tr><td colspan="10" style="text-align:center;padding:30px;color:#aaa">No sales data found</td></tr>';return}tbody.innerHTML=filteredSales.map(o=>`<tr><td><strong>${o['Order No']||o['Sl. No']||''}</strong></td><td>${o.Customer||''}</td><td>${o['Item Name']||''}</td><td>${o['Order Delivery']||o['Order Qty']||0}</td><td>${o.Delivered||0}</td><td><strong>${o.Pending||o['Pending Rate']||0}</strong></td><td>₹${(parseFloat(o.Rate||o['Value Before']||0)/parseInt(o['Order Delivery']||1)).toFixed(0)}</td><td><strong>₹${parseFloat(o['Pending D.']||o['Pending Value']||0).toLocaleString()}</strong></td><td>${o['Item Descript Sales Person']||o['Sales Person']||''}</td><td><span class="badge ${parseInt(o.Pending||0)>0?'badge-pending':'badge-completed'}">${parseInt(o.Pending||0)>0?'Pending':'Done'}</span></td></tr>`).join('');document.getElementById('salesCount').textContent=filteredSales.length}
 
-const years=['2023','2024','2025'];const yearlyTrace={x:years,y:years.map(()=>Math.random()*10000000),type:'bar',marker:{color:['#667eea','#764ba2','#28a745']}};Plotly.newPlot('billingYearly',[yearlyTrace],{paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#fff'},xaxis:{title:'Year'},yaxis:{title:'Total Billing (₹)'}},{responsive:true})}
+function renderPurchaseTable(){const tbody=document.querySelector('#purchaseTable tbody');const data=allData.purchase;if(data.length===0){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:30px;color:#aaa">Upload Purchase Order file</td></tr>';return}tbody.innerHTML=data.slice(0,100).map(o=>`<tr><td>${o['Order No']||o['PO Number']||''}</td><td>${o.Vendor||o.Supplier||''}</td><td>${o['Item Name']||o.Item||''}</td><td>${o.Qty||o.Quantity||0}</td><td>₹${parseFloat(o.Rate||0).toLocaleString()}</td><td>₹${parseFloat(o.Amount||o.Value||0).toLocaleString()}</td><td>${o.Remarks||'-'}</td><td><span class="badge badge-completed">Active</span></td></tr>`).join('');document.getElementById('purchaseCount').textContent=data.length}
 
-function renderTables(){const salesTable=document.querySelector('#salesTable tbody');salesTable.innerHTML=salesData.slice(0,50).map(o=>`<tr><td>${o['Order No']||o['Sl. No']||''}</td><td>${o.Customer||''}</td><td>${o['Item Name']||''}</td><td>${o['Order Qty']||0}</td><td>${o.Delivered||0}</td><td>${o.Pending||0}</td><td>₹${(o.Rate||0).toLocaleString()}</td><td>₹${(o['Pending Value']||0).toLocaleString()}</td><td><span class="badge ${parseInt(o.Pending||0)>0?'badge-pending':'badge-completed'}">${parseInt(o.Pending||0)>0?'Pending':'Completed'}</span></td></tr>`).join('');
+function renderBillingTable(){const tbody=document.querySelector('#billingTable tbody');const data=allData.billing;if(data.length===0){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:30px;color:#aaa">Upload Billing Plan file</td></tr>';return}tbody.innerHTML=data.slice(0,100).map(o=>`<tr><td>${o['Order No']||''}</td><td>${o.Customer||''}</td><td>₹${parseFloat(o.Amount||o.Value||0).toLocaleString()}</td><td>${o.Date||o['Plan Date']||'-'}</td><td><span class="badge badge-pending">Scheduled</span></td></tr>`).join('');document.getElementById('billingCount').textContent=data.length}
 
-const inventoryTable=document.querySelector('#inventoryTable tbody');if(stockData.length>0){inventoryTable.innerHTML=stockData.slice(0,50).map(s=>`<tr><td>${s.Item||s['Item Name']||''}</td><td>${s['Total Stock']||0}</td><td>${s.Reserved||0}</td><td>${(s['Total Stock']||0)-(s.Reserved||0)}</td><td>${s['Against Order']||'-'}</td><td><span class="badge ${(s['Total Stock']||0)>(s.Reserved||0)?'badge-completed':'badge-pending'}">${(s['Total Stock']||0)>(s.Reserved||0)?'Available':'Low Stock'}</span></td></tr>`).join('')}else{inventoryTable.innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px;color:#aaa">Upload stock/inventory Excel file to see data</td></tr>'}}
+function renderInventoryTable(){const tbody=document.querySelector('#inventoryTable tbody');const data=allData.inventory;if(data.length===0){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px;color:#aaa">Upload Stock Register file</td></tr>';return}tbody.innerHTML=data.slice(0,100).map(o=>`<tr><td>${o.Item||o['Item Name']||''}</td><td>${o.Description||o['Item Description']||'-'}</td><td>${o.Qty||o.Quantity||0}</td><td>₹${parseFloat(o.Rate||0).toLocaleString()}</td><td>₹${parseFloat(o.Value||0).toLocaleString()}</td><td>${o.Location||o.Warehouse||'-'}</td></tr>`).join('');document.getElementById('inventoryCount').textContent=data.length}
 
-function exportData(type){const data=type==='sales'?salesData:purchaseData;const csv=[Object.keys(data[0]||{}).join(','),...data.map(row=>Object.values(row).join(','))].join('\n');const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`magnova-${type}-${new Date().toISOString().split('T')[0]}.csv`;a.click()}
+function renderInvoiceTable(){const tbody=document.querySelector('#pricingTable tbody');const data=allData.invoice;if(data.length===0){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px;color:#aaa">Upload Invoice file</td></tr>';return}tbody.innerHTML=data.slice(0,100).map(o=>`<tr><td>${o['Invoice No']||''}</td><td>${o.Customer||''}</td><td>${o.Item||o['Item Name']||''}</td><td>${o.Qty||0}</td><td>₹${parseFloat(o.Rate||0).toLocaleString()}</td><td>₹${parseFloat(o.Amount||0).toLocaleString()}</td><td>${o.Date||'-'}</td></tr>`).join('');document.getElementById('invoiceCount').textContent=data.length}
+
+function filterSales(){const search=document.getElementById('salesSearch').value.toLowerCase();const status=document.getElementById('salesFilter').value;filteredSales=allData.sales.filter(o=>{const matchSearch=!search||(o['Order No']||'').toLowerCase().includes(search)||(o.Customer||'').toLowerCase().includes(search)||(o['Item Name']||'').toLowerCase().includes(search);const matchStatus=status==='all'||(status==='pending'&&parseInt(o.Pending||0)>0)||(status==='completed'&&parseInt(o.Pending||0)===0);return matchSearch&&matchStatus});renderSalesTable()}
+
+function exportData(type){const data=type==='sales'?filteredSales:allData[type];if(data.length===0)return alert('No data to export');const csv=[Object.keys(data[0]).join(','),...data.map(row=>Object.values(row).map(v=>typeof v==='string'&&v.includes(',')?`"${v}"`:v).join(','))].join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`magnova-${type}-${new Date().toISOString().split('T')[0]}.csv`;a.click()}
 
 render3DCharts();
 </script>
